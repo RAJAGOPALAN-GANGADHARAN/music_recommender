@@ -1,6 +1,7 @@
 import numpy as np
 from lightfm.datasets import fetch_movielens
 from lightfm import LightFM
+import sys
 
 #fetch data and format it
 data = fetch_movielens(min_rating=4.0)
@@ -38,5 +39,22 @@ def sample_recommendation(model, data, user_ids):
 
         for x in top_items[:3]:
             print("        %s" % x)
-            
-sample_recommendation(model, data, [3, 25, 450])
+
+
+user_one = input('Enter user ID #1 (0 - 942):')
+user_two = input('Enter user ID #2 (0 - 942):')
+user_three = input('Enter user ID #3 (0 - 942):')
+
+user_ids = (user_one, user_two, user_three)
+
+for user_id in user_ids:
+    try:
+        user_id = int(user_id)
+    except ValueError:
+        print('Invalid input entered')
+        sys.exit()
+    if user_id < 0 or user_id > 942:
+        print('Invalid number entered')
+        sys.exit()
+
+sample_recommendation(model, data, user_ids)
