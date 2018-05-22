@@ -1,48 +1,46 @@
 import gzip
 from scipy.sparse import coo_matrix
 
+def get_lastfm(min_plays=200):
+    # coo_matrix
+    data, row, col = [], [], []
 
-# coo_matrix
-data, row, col = [], [], []
+    artists, users = {}, {}
 
-artists, users = {}, {}
+    musicFile = gzip.open('/Users/brettgadberry/Desktop/lastfm-dataset-360K.tar.gz', 'rt')
 
-min_plays = 200
+    iter_musicFile = iter(musicFile)
+    next(iter_musicFile)
 
-musicFile = gzip.open('/Users/brettgadberry/Desktop/lastfm-dataset-360K.tar.gz', 'rt')
+    for n, line in enumerate(iter_musicFile):
+        readable_data  = line.split('\t')
+        user = readable_data[0]
+        artist_id = readable_data[1]
+        artist_name = readable_data[2]
+        plays = int(readable_data[3])
+        
+        if user not in users:
+            users[user] = len(users)
 
-iter_musicFile = iter(musicFile)
-next(iter_musicFile)
+        if artist_id not in artists:
+            artists[artist_id] = {
+                'name' : artist_name,
+                'id' : len(artists)
+                }
 
-for n, line in enumerate(iter_musicFile):
-    readable_data  = line.split('\t')
-    user = readable_data[0]
-    artist_id = readable_data[1]
-    artist_name = readable_data[2]
-    plays = int(readable_data[3])
+        if plays > min_plays:
+            data.append(plays)
+            row.append(users[user])
+            col.append(artists[artist_id]['id'])
+        
+        if n == 100000: break
+
+    coo = coo_matrix((data,(row,col)))
+
+    dictionary = {
+        'matrix' : coo,
+        'artists' : artists,
+        'users' : len(users)
+        }
     
-    if user not in users:
-        users[user] = len(users)
-
-    if artist_id not in artists:
-        artists[artist_id] = {
-            'name' : artist_name,
-            'id' : len(artists)
-            }
-
-    if plays > min_plays:
-        data.append(plays)
-        row.append(users[user])
-        col.append(artists[artist_id]['id'])
-    
-    if n == 100000: break
-
-coo = coo_matrix((data,(row,col)))
-
-dictionary = {
-    'matrix' : coo,
-    'artists' : artists,
-    'users' : len(users)
-    }
-
-print("hello world")
+    return dictionary
