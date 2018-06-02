@@ -1,6 +1,7 @@
 import gzip
 from scipy.sparse import coo_matrix
 
+# get data from lastfm data set
 def get_lastfm(min_plays=200):
 
     # enter source data file path
@@ -52,38 +53,36 @@ def get_lastfm(min_plays=200):
     users[my_user_id] = len(users)
 
     # add end user's favorite artists to data matrix
+    break_point = len(data)+len(my_artists)
     for artist in artists.items():
-        if len(data) == 51367: break
-        if my_artist == artist[1]['name']:
+        if len(data) == break_point: break
+        if my_artists[0] == artist[1]['name']:
+            data.append(700)
+            row.append(len(users))
+            col.append(artist[1]['id'])
+            print('%s found' % my_artists[0])
+        elif my_artists[1] == artist[1]['name']:
+            data.append(600)
+            row.append(len(users))
+            col.append(artist[1]['id'])
+            print('%s found' % my_artists[1])
+        elif my_artists[2] == artist[1]['name']:
             data.append(500)
             row.append(len(users))
             col.append(artist[1]['id'])
-            print('%s found' % my_artist)
-            continue
-        elif my_artist2 == artist[1]['name']:
-            data.append(400)
-            row.append(len(users))
-            col.append(artist[1]['id'])
-            print('%s found' % my_artist2)
-            continue
-        elif my_artist3 == artist[1]['name']:
-            data.append(300)
-            row.append(len(users))
-            col.append(artist[1]['id'])
-            print('%s found' % my_artist3)
+            print('%s found' % my_artists[2])
 
     # complie matrix
     coo = coo_matrix((data,(row,col)))
 
     # return dictionary containing: data matrix, artists dictionary, amount of users
-    dictionary = {
+    lastfm = {
         'matrix' : coo,
         'artists' : artists,
         'users' : len(users)
         }
 
-    return dictionary
-
+    return lastfm
 
 # enter your favorite artists
 my_artist = input('Enter your favorite artist?: ')

@@ -2,17 +2,19 @@ import numpy as np
 from lightfm import LightFM
 from get_lastfm import get_lastfm, my_artists
 
-# get final data set from get_lastfm
+# get data matrix, artists, and users from get_lastfm
 data = get_lastfm()
 
+# apply model to data set
 model = LightFM(loss='warp')
 model.fit(data['matrix'], epochs=30, num_threads=2)
 
-def get_recommendations(model, coo, my_user):
+# get recommendations from model 
+def get_recommendations(model, coo, user):
 
     n = coo.shape[1]
 
-    try: scores = model.predict(my_user, np.arange(n))
+    try: scores = model.predict(user, np.arange(n))
     except ValueError:
         print('entered artists not found')
     top_scores = np.argsort(-scores)[:10]
