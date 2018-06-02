@@ -23,6 +23,8 @@ def get_recommendations(model, coo, users):
                 if int(score) == values['id']:
                     print('   - %s' % values['name'])
 
+favorite_artist = input('Who\'s your favorite artist? ')
+
 user_1 = input('Select user 1 (0 to %s): ' % data['users'])
 user_2 = input('Select user 2 (0 to %s): ' % data['users'])
 user_3 = input('Select user 3 (0 to %s): ' % data['users'])

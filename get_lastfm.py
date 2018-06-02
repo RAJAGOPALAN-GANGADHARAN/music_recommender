@@ -3,13 +3,13 @@ from scipy.sparse import coo_matrix
 
 def get_lastfm(min_plays=200):
 
-    # [plays], [user index], [artist index]
+    # [plays], [user_index], [artist_index]
     data, row, col = [], [], []
 
-    # {'artist_id': {'id': index, 'name': 'artist_name'}}
+    # {'artist_id': {'id': 'index', 'name': 'artist_name'}}
     artists = {}
 
-    # {'user_id': index}
+    # {'user_id': 'index'}
     users = {}
 
     # open data set
