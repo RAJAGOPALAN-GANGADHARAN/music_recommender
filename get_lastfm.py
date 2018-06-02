@@ -1,15 +1,19 @@
 import gzip
 from scipy.sparse import coo_matrix
 
+my_artist = input('Who\'s your favorite artist? ')
+my_artist2 = input('Who\'s your second favorite artist? ')
+my_artist3 = input('Who\'s your third favorite artist? ')
+
 def get_lastfm(min_plays=200):
 
     # [plays], [user_index], [artist_index]
     data, row, col = [], [], []
 
-    # {'artist_id': {'id': 'index', 'name': 'artist_name'}}
+    # {artist_id: {'id': 'index', 'name': 'artist_name'}}
     artists = {}
 
-    # {'user_id': 'index'}
+    # {user_id: 'index'}
     users = {}
 
     # open data set
@@ -43,9 +47,32 @@ def get_lastfm(min_plays=200):
             data.append(plays)
             row.append(users[user_id])
             col.append(artists[artist_id]['id'])
-        
+
         # end function at n rows
-        if n == 100000: break
+        if n == 180000: break
+    
+    my_user_id = '0000000000000000000000000000000000000000'
+    users[my_user_id] = len(users)
+
+    for artist in artists.items():
+        if len(data) == 51367: break
+        if my_artist == artist[1]['name']:
+            data.append(500)
+            row.append(len(users))
+            col.append(artist[1]['id'])
+            print('%s found' % my_artist)
+            continue
+        elif my_artist2 == artist[1]['name']:
+            data.append(400)
+            row.append(len(users))
+            col.append(artist[1]['id'])
+            print('%s found' % my_artist2)
+            continue
+        elif my_artist3 == artist[1]['name']:
+            data.append(300)
+            row.append(len(users))
+            col.append(artist[1]['id'])
+            print('%s found' % my_artist3)
 
     # complie matrix
     coo = coo_matrix((data,(row,col)))
