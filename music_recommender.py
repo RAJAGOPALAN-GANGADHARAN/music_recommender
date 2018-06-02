@@ -1,6 +1,6 @@
 import numpy as np
 from lightfm import LightFM
-from get_lastfm import get_lastfm, my_artist, my_artist2, my_artist3
+from get_lastfm import get_lastfm, my_artists
 
 # get final data set from get_lastfm
 data = get_lastfm()
@@ -23,7 +23,8 @@ def get_recommendations(model, coo, my_user):
         for artist_id, values in data['artists'].items():
             if int(score) == values['id']:
                 if values['name'] == 'rock universal': continue
-                if values['name'] == my_artist or values['name'] == my_artist2 or values['name'] == my_artist3: continue
+                for artist in my_artists:
+                    if values['name'] == artist: continue
                 print(' - %s' % values['name'])
 
 get_recommendations(model, data['matrix'], data['users'])

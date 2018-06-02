@@ -1,27 +1,23 @@
 import gzip
 from scipy.sparse import coo_matrix
 
-my_artist = input('Who\'s your favorite artist? ')
-my_artist2 = input('Who\'s your second favorite artist? ')
-my_artist3 = input('Who\'s your third favorite artist? ')
-
 def get_lastfm(min_plays=200):
 
-    # [plays], [user_index], [artist_index]
-    data, row, col = [], [], []
-
-    # {artist_id: {'id': 'index', 'name': 'artist_name'}}
-    artists = {}
-
-    # {user_id: 'index'}
-    users = {}
-
-    # open data set
+    # enter source data file path
     musicFile = gzip.open('/Users/brettgadberry/Desktop/lastfm-dataset-360K.tar.gz', 'rt')
     
     # skip header
     iter_musicFile = iter(musicFile)
     next(iter_musicFile)
+
+    # lists for data matrix: [plays], [user_index], [artist_index]
+    data, row, col = [], [], []
+
+    # artists dictionary: {artist_id: {'id': 'index', 'name': 'artist_name'}}
+    artists = {}
+
+    # users dictionary: {user_id: 'index'}
+    users = {}
 
     # read data set
     for n, line in enumerate(iter_musicFile):
@@ -42,18 +38,20 @@ def get_lastfm(min_plays=200):
                 'id' : len(artists)
                 }
         
-        # add data to coo_matrix
+        # add data to matrix
         if plays > min_plays:
             data.append(plays)
             row.append(users[user_id])
             col.append(artists[artist_id]['id'])
 
-        # end function at n rows
+        # end function at 180,000 rows (50% of data source)
         if n == 180000: break
     
+    # add end user to users dictionary
     my_user_id = '0000000000000000000000000000000000000000'
     users[my_user_id] = len(users)
 
+    # add end user's favorite artists to data matrix
     for artist in artists.items():
         if len(data) == 51367: break
         if my_artist == artist[1]['name']:
@@ -77,7 +75,7 @@ def get_lastfm(min_plays=200):
     # complie matrix
     coo = coo_matrix((data,(row,col)))
 
-    # return matrix, artists dictionary, amount of users
+    # return dictionary containing: data matrix, artists dictionary, amount of users
     dictionary = {
         'matrix' : coo,
         'artists' : artists,
@@ -85,3 +83,11 @@ def get_lastfm(min_plays=200):
         }
 
     return dictionary
+
+
+# enter your favorite artists
+my_artist = input('Enter your favorite artist?: ')
+my_artist2 = input('Enter your second favorite artist?: ')
+my_artist3 = input('Enter your third favorite artist?: ')
+
+my_artists = [my_artist, my_artist2, my_artist3]
