@@ -13,7 +13,7 @@ model.fit(data['matrix'], epochs=30, num_threads=2)
 # get recommendations from model 
 def get_recommendations(model, coo, user):
 
-    # makes prediction based on end user valuesdr. dog
+    # makes prediction based on end user values
     n = coo.shape[1]
     try: scores = model.predict(user, np.arange(n))
     except ValueError:
