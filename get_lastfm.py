@@ -4,8 +4,8 @@ from scipy.sparse import coo_matrix
 # get data from lastfm data set
 def get_lastfm(min_plays=200):
 
-    # enter source data file path
-    musicFile = gzip.open('/Users/brettgadberry/Desktop/lastfm-dataset-360K.tar.gz', 'rt')
+    # source data set file path
+    musicFile = gzip.open('lastfm-dataset-360K.tar.gz', 'rt')
     
     # skip header
     iter_musicFile = iter(musicFile)

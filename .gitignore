@@ -41,3 +41,5 @@
 env/
 .vscode
 __pycache__/
+lastfm-dataset-360K.tar.gz
+.DS_Store
