@@ -33,7 +33,7 @@ def get_recommendations(model, coo, user):
         else: top_recommendations.append(recommendation)
     
     # disply top 10 recommendations 
-    print('Your music recommedations are:')
+    print('Your top 10 music recommedations are:')
     for i in range(10):
         print(' - %s' % top_recommendations[i])
 
