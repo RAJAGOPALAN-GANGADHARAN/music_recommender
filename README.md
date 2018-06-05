@@ -33,4 +33,4 @@ Run the below script in terminal:
 python3 music_recommender.py
 ```
 
-Enter your top 3 favorite artists before March 2010 (lowercase). Displays artists that are found in recommendation system. Result is top 5 artist recommendations. 
+Enter your top 3 favorite artists before March 2010 (lowercase). Displays artists that are found in recommendation system. Result is top 10 artist recommendations. 
