@@ -15,11 +15,7 @@ pip3 install -r requirements.txt
 
 ## Usage
 
-Download the dataset file from the below link:
-
-```
-http://www.dtic.upf.edu/~ocelma/MusicRecommendationDataset/lastfm-360K.html 
-```
+Download the dataset file [here](http://www.dtic.upf.edu/~ocelma/MusicRecommendationDataset/lastfm-360K.html).
 
 Move the dataset file to the music_recommender directory. The presumed file path is below:
 
