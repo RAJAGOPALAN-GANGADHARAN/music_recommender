@@ -21,7 +21,7 @@ Download the dataset file from the below link:
 http://www.dtic.upf.edu/~ocelma/MusicRecommendationDataset/lastfm-360K.html 
 ```
 
-Move the file to the music_recommender directory. The presumed file path is below:
+Move the dataset file to the music_recommender directory. The presumed file path is below:
 
 ```
 /music_recommender/lastfm-dataset-360K.tar.gz
