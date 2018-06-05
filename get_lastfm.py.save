@@ -85,8 +85,9 @@ def get_lastfm(min_plays=200):
     return lastfm
 
 # enter your favorite artists
-my_artist = input('Enter your favorite artist?: ').lower()
+my_artist = input('Enter your favorit artist?: ').lower()
 my_artist2 = input('Enter your second favorite artist?: ').lower()
 my_artist3 = input('Enter your third favorite artist?: ').lower()
+print(my_artist,my_artist2,my_artist3)
 
 my_artists = [my_artist, my_artist2, my_artist3]
