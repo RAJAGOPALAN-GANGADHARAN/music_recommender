@@ -7,7 +7,10 @@ import sys
 data = get_lastfm()
 
 # apply model to data set
-model = LightFM(loss='warp')
+try:
+	model = LightFM(loss='warp')
+except Warning:
+	print('LightFM was compiled without openmp support')
 model.fit(data['matrix'], epochs=30, num_threads=2)
 
 # get recommendations from model 
