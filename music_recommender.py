@@ -20,10 +20,10 @@ def get_recommendations(model, coo, user):
         print('entered artists not found')
         sys.exit()
     
-    # get top 10 recommendations
+    # get top 15 recommendations
     top_recommendations = []
     values = list(data['artists'].values())
-    top_scores = np.argsort(-scores)[:10]
+    top_scores = np.argsort(-scores)[:15]
     for score in top_scores:
         recommendation = values[score]['name']
         if recommendation == 'rock universal': continue
@@ -32,9 +32,9 @@ def get_recommendations(model, coo, user):
         elif recommendation == my_artists[2]: continue
         else: top_recommendations.append(recommendation)
     
-    # disply top 5 recommendations 
+    # disply top 10 recommendations 
     print('Your music recommedations are:')
-    for i in range(5):
+    for i in range(10):
         print(' - %s' % top_recommendations[i])
 
 # get recommendations from model
