@@ -2,15 +2,15 @@ import numpy as np
 from lightfm import LightFM
 from get_lastfm import get_lastfm, my_artists
 import sys
+import warnings
 
 # get data matrix, artists, and users from get_lastfm
 data = get_lastfm()
 
+#ignore the warnings
+warnings.filterwarnings('ignore')
 # apply model to data set
-try:
-	model = LightFM(loss='warp')
-except Warning:
-	print('LightFM was compiled without openmp support')
+model = LightFM(loss='warp')
 model.fit(data['matrix'], epochs=30, num_threads=2)
 
 # get recommendations from model 
